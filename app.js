@@ -29,8 +29,6 @@ $(document).keypress(function (k) {
         $("#" + key).css("background-color", "#F5F5F5")
     });
 });
-let sentences = ['ten', 'Too', 'oat', 'itant', 'nee'];
-let a = 0;
 let index = 0;
 let displayChar = sentences[a].charCodeAt(index)
 console.log(displayChar)
@@ -39,17 +37,20 @@ $(document).keypress(function(e){
     if (e.which === char) {
         console.log("The keys match!")
         index++
-        let displayChar = sentences[a].charCodeAt(index)
+        displayChar = sentences[a].charCodeAt(index)
         console.log(displayChar)
         if (isNaN(displayChar)) {
             $("p").remove();
-            let index = 0
+            index = 0
             a++
+            if (a == 5) {
+                window.alert("you did it!")
+            } else {
             $("<p>" + sentences[a] + "</p>").appendTo("#sentence")
-            let displayChar = sentences[a].charCodeAt(index)
+            displayChar = sentences[a].charCodeAt(index)
             console.log("displayChar changed to " + displayChar,)
             console.log("index changed to " + index)
-            console.log("a changed to " + a)
+            console.log("a changed to " + a)}
         }
     } else {
         console.log("WRONG KEY, DOOFUS!!")
