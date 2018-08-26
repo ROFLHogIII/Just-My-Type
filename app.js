@@ -46,6 +46,8 @@ $(document).keypress(function(e){
         $(yellowBox).css("margin-left", yellowShift + "px")
         console.log(yellowShift)
         if (isNaN(displayChar)) {
+            $( "#feedback-X" ).empty();
+            $( "#feedback-√" ).empty();
             $("p").remove();
             index = 0
             a++
@@ -60,6 +62,8 @@ $(document).keypress(function(e){
             console.log(`displayChar changed to ${displayChar}`)
             console.log(`index changed to ${index}`)
             console.log(`a changed to ${a}`)}
+            $( "#feedback-X" ).empty();
+            $( "#feedback-√" ).empty();
         }
     } else {
         $(`<span id="feedback-X" style="color:red">X</span>`).appendTo("#feedback")
