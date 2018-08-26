@@ -2,11 +2,10 @@
 $("#keyboard-upper-container").hide();
 let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
 let a = 0;
-$(`<p> ${sentences[a]} </p>`).appendTo("#sentence")
-// a++;
-// console.log(a)
-// $("<p>" + sentences[a] + "</p>").appendTo("#sentence")
+$(`<p>${sentences[a]}</p>`).appendTo("#sentence")
+
 let yellowBox = $("#yellow-block")
+
 
 $(document).keydown(function (d) {
     if (d.keyCode == 16) {
@@ -33,12 +32,15 @@ $(document).keypress(function (k) {
 let index = 0;
 let displayChar = sentences[a].charCodeAt(index);
 let yellowShift = 0;
+let displayLet = [...(sentences[a])[index]]
+console.log(displayLet)
+$(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
 console.log(displayChar)
 $(document).keypress(function(e){
     let char = sentences[a].charCodeAt(index)
     if (e.which === char) {
         console.log("The keys match!")
-        $(`<span id="feedback-√" style="color:green">√</span>`).appendTo("#feedback")
+        $(`<span id="remove" style="color:green">√</span>`).appendTo("#feedback")
         index++
         displayChar = sentences[a].charCodeAt(index)
         console.log(displayChar)
@@ -46,9 +48,8 @@ $(document).keypress(function(e){
         $(yellowBox).css("margin-left", yellowShift + "px")
         console.log(yellowShift)
         if (isNaN(displayChar)) {
-            $( "#feedback-X" ).empty();
-            $( "#feedback-√" ).empty();
             $("p").remove();
+            $("span#remove").remove();
             index = 0
             a++
             $(yellowBox).css("margin-left", "0px")
@@ -59,14 +60,20 @@ $(document).keypress(function(e){
             } else {
             $(`<p> ${sentences[a]} </p>`).appendTo("#sentence")
             displayChar = sentences[a].charCodeAt(index)
+            displayLet = [...(sentences[a])[index]]
+            $("#letter").remove();
+            $(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
             console.log(`displayChar changed to ${displayChar}`)
             console.log(`index changed to ${index}`)
             console.log(`a changed to ${a}`)}
-            $( "#feedback-X" ).empty();
-            $( "#feedback-√" ).empty();
+            $("#remove").empty();
+        } else {
+            displayLet = [...(sentences[a])[index]]
+            $("#letter").remove();
+            $(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
         }
     } else {
-        $(`<span id="feedback-X" style="color:red">X</span>`).appendTo("#feedback")
+        $(`<span id="remove" style="color:red">X</span>`).appendTo("#feedback")
         console.log("WRONG KEY, DOOFUS!!")
         console.log(`displayChar is + ${displayChar}`)
         console.log(`index is ${index}`)
