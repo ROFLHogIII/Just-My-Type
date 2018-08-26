@@ -38,6 +38,7 @@ $(document).keypress(function(e){
     let char = sentences[a].charCodeAt(index)
     if (e.which === char) {
         console.log("The keys match!")
+        $(`<span id="feedback-√" style="color:green">√</span>`).appendTo("#feedback")
         index++
         displayChar = sentences[a].charCodeAt(index)
         console.log(displayChar)
@@ -61,6 +62,7 @@ $(document).keypress(function(e){
             console.log(`a changed to ${a}`)}
         }
     } else {
+        $(`<span id="feedback-X" style="color:red">X</span>`).appendTo("#feedback")
         console.log("WRONG KEY, DOOFUS!!")
         console.log(`displayChar is + ${displayChar}`)
         console.log(`index is ${index}`)
