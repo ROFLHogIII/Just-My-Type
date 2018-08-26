@@ -3,10 +3,17 @@ $("#keyboard-upper-container").hide();
 let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
 let a = 0;
 $(`<p>${sentences[a]}</p>`).appendTo("#sentence")
-
+let clock = 0;
 let yellowBox = $("#yellow-block")
-
-
+function ready() {
+alert("Ready?")
+set()
+}
+function set(){
+    alert("Go!")
+}
+ready();
+setInterval(function(){clock++}, 1000);
 $(document).keydown(function (d) {
     if (d.keyCode == 16) {
         $("#keyboard-lower-container").hide();
@@ -19,9 +26,6 @@ $(document).keydown(function (d) {
         };
     });
 });
-$(document).keypress(function (e) {
-    console.log(`Ascii : ${e.which}`);
-});
 $(document).keypress(function (k) {
     let key = k.which
     $(`#${key}`).css("background-color", "yellow")
@@ -33,20 +37,17 @@ let index = 0;
 let displayChar = sentences[a].charCodeAt(index);
 let yellowShift = 0;
 let displayLet = [...(sentences[a])[index]]
-console.log(displayLet)
 $(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
-console.log(displayChar)
-$(document).keypress(function(e){
+let mistake = 0;
+
+$(document).keypress(function (e) {
     let char = sentences[a].charCodeAt(index)
     if (e.which === char) {
-        console.log("The keys match!")
         $(`<span id="remove" style="color:green">√</span>`).appendTo("#feedback")
         index++
         displayChar = sentences[a].charCodeAt(index)
-        console.log(displayChar)
         yellowShift = yellowShift + 17;
         $(yellowBox).css("margin-left", yellowShift + "px")
-        console.log(yellowShift)
         if (isNaN(displayChar)) {
             $("p").remove();
             $("span#remove").remove();
@@ -54,19 +55,22 @@ $(document).keypress(function(e){
             a++
             $(yellowBox).css("margin-left", "0px")
             yellowShift = 0
-            console.log(yellowShift)
+
             if (a == 5) {
-                window.alert("you did it!")
+                clearInterval(clock)
+                let WpM = (54/(clock/60)) - (2 * mistake)
+                alert(`You did the thing!`)
+                alert(`Your Words per Minute was ${WpM}`)
+                alert(`WpM = 54/(${clock}/60) - (2 * ${mistake})`)
+                alert(`To play agin, refresh the page!`)
             } else {
-            $(`<p> ${sentences[a]} </p>`).appendTo("#sentence")
-            displayChar = sentences[a].charCodeAt(index)
-            displayLet = [...(sentences[a])[index]]
-            $("#letter").remove();
-            $(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
-            console.log(`displayChar changed to ${displayChar}`)
-            console.log(`index changed to ${index}`)
-            console.log(`a changed to ${a}`)}
-            $("#remove").empty();
+                $(`<p> ${sentences[a]} </p>`).appendTo("#sentence")
+                displayChar = sentences[a].charCodeAt(index)
+                displayLet = [...(sentences[a])[index]]
+                $("#letter").remove();
+                $(`<p id="letter">${displayLet}<p>`).appendTo("#target-letter")
+                $("#remove").empty();
+            }
         } else {
             displayLet = [...(sentences[a])[index]]
             $("#letter").remove();
@@ -74,18 +78,6 @@ $(document).keypress(function(e){
         }
     } else {
         $(`<span id="remove" style="color:red">X</span>`).appendTo("#feedback")
-        console.log("WRONG KEY, DOOFUS!!")
-        console.log(`displayChar is + ${displayChar}`)
-        console.log(`index is ${index}`)
-        console.log(`a is + ${a}`)
+        mistake++
     }
 })
-
-
-//$("").click(function () {
-    //$("#rand").css("color", "red");
-//    let colorR = Math.floor((Math.random() * 256));
-//    let colorG = Math.floor((Math.random() * 256));
-//    let colorB = Math.floor((Math.random() * 256));
-//    $("#rand").css("color", "rgb(" + colorR + "," + colorG + "," + colorB + ")")
-//});
