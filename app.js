@@ -1,6 +1,6 @@
 
 $("#keyboard-upper-container").hide();
-let sentences = ['ten', 'Too', 'oat', 'itant', 'nee'];
+let sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
 let a = 0;
 $(`<p> ${sentences[a]} </p>`).appendTo("#sentence")
 // a++;
@@ -41,7 +41,7 @@ $(document).keypress(function(e){
         index++
         displayChar = sentences[a].charCodeAt(index)
         console.log(displayChar)
-        yellowShift = yellowShift + 10;
+        yellowShift = yellowShift + 17;
         $(yellowBox).css("margin-left", yellowShift + "px")
         console.log(yellowShift)
         if (isNaN(displayChar)) {
